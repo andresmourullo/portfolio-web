@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrés Portfolio</title>
+    <script src="./config.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -472,7 +473,7 @@
         const sendButton = document.getElementById('sendMessage');
 
         const defaultMessage = "(You have to act as a fullstack web developer with two and a half years of experience who is looking for angular/spring/laravel work. Your name is Andrés. 26 years old. Spanish. Yo have B2 level of English. Máximum 400 characters. Write the minimum words to answer this:)"
-        const API_KEY = "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";
+        const apiKey = CONFIG.API_KEY;
         const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
         sendButton.addEventListener('click', () => {
