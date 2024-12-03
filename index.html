@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrés Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: #f8f9fa;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #chatbotHeader {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #chatbotMessages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        #chatbotInput {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        #chatbotInput textarea {
+            flex-grow: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 0 0 0 8px;
+            resize: none;
+        }
+        #chatbotInput button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 0 8px 0;
+            cursor: pointer;
+        }
+        #chatbotInput button:hover {
+            background: #0056b3;
+        }
+        .userMessage {
+            background: #007bff;
+            color: white;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 8px;
+            text-align: right;
+            max-width: 80%;
+            margin-left: auto;
+        }
+        .botMessage {
+            background: #e9ecef;
+            color: #333;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 8px;
+            text-align: left;
+            max-width: 80%;
+        }
+        #minimizeChatbot {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        #minimizeChatbot:hover {
+            color: #ffcccb;
+        }
+        #chatbot.minimized {
+            height: 40px;
+            overflow: hidden;
+        }
+        #chatbot.minimized #chatbotMessages,
+        #chatbot.minimized #chatbotInput {
+            display: none;
+        }
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #333;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Andrés Mourullo Fernández</a>
+    </nav>
+
+    <!-- <div class="profile-container">
+        <img src="myself.jpg" alt="Foto de perfil" class="profile-pic">
+    </div> -->
+
+    <div class="container mt-5">
+        <h1 class="text-dark mb-4">Full Stack Software Developer</h1>
+        
+        <button class="btn btn-primary mb-3" id="btnExpandAll">Expand All</button>
+
+        <div class="accordion" id="accordionResume">
+
+            <!-- Work Experience -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingExperience">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseExperience" aria-expanded="false" aria-controls="collapseExperience">
+                            <i class="fas fa-briefcase fa-fw"></i> Work Experience
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseExperience" class="collapse" aria-labelledby="headingExperience" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Full Stack Software Developer
+                        EcaptureDtech | October 2023 - Present<br>
+                        In this 3D model generation company I have helped to create several webapps with Angular and backend with Laravel.
+                    </div>
+                    <div class="card-body">
+                        Full Stack Software Developer
+                        Phiteca | March 2023 - September 2023<br>
+                        In this online academy created an APIRest with Spring and interface with Angular that stored all student data in a PostgreSQL database. In addition, I helped to create some mini-games like calculus quizzes or wordsearch puzzles.
+                    </div>
+                    <div class="card-body">
+                        Full Stack Web Developer
+                        Apinavarro | December 2021 - December 2022<br>
+                        In this real estate company I used Wordpress to create and maintain the website through which the properties were offered. In addition to this, I created advertising campaigns for Facebook.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingEducation">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseEducation" aria-expanded="false" aria-controls="collapseEducation">
+                            <i class="fas fa-graduation-cap fa-fw"></i> Education
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseEducation" class="collapse" aria-labelledby="headingEducation" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Superior Degree in Multiplatform Application Development
+                        Fomento Ocupacional | September 2022 - September 2024
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingDescription">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light" type="button" data-toggle="collapse" data-target="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
+                            <i class="fas fa-user fa-fw"></i> Description
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseDescription" class="collapse" aria-labelledby="headingDescription" data-parent="#accordionResume">
+                    <div class="card-body">
+                        I am a creative and resourceful developer, always eager to learn.
+                        I have experience and knowledge in design, recording, and audiovisual editing, which complements my work as a developer.
+                        I have great communication skills, and you'll never see me without a cup of coffee in one hand and a keyboard in the other, ready to bring any idea to life.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingCertifications">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseCertifications" aria-expanded="false" aria-controls="collapseCertifications">
+                            <i class="fas fa-certificate fa-fw"></i> Certifications
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseCertifications" class="collapse" aria-labelledby="headingCertifications" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Python Essentials 1
+                        Cisco | 2022
+                    </div>
+                    <div class="card-body">
+                        Python Essentials 2
+                        Cisco | 2022
+                    </div>
+                    <div class="card-body">
+                        Python for Data Science
+                        IBM | 2023
+                    </div>
+                    <div class="card-body">
+                        Data Visualization with Python
+                        IBM | 2023
+                    </div>
+                    <div class="card-body">
+                        Data Analysis using Python
+                        IBM | 2023
+                    </div>
+                    <div class="card-body">
+                        Applied Data Science with Python - Level 2
+                        IBM | 2023
+                    </div>
+                    <div class="card-body">
+                        Java Foundations
+                        Oracle | 2023
+                    </div>
+                    <div class="card-body">
+                        Fundamentals in Windows 10
+                        Microsoft IT Academy | 2023
+                    </div>
+                    <div class="card-body">
+                        Introduction to Cybersecurity
+                        Cisco | 2023
+                    </div>
+                    <div class="card-body">
+                        Cybersecurity Essentials
+                        Cisco | 2023
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programming Languages -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingProgrammingLanguages">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseProgrammingLanguages" aria-expanded="false" aria-controls="collapseProgrammingLanguages">
+                            <i class="fas fa-code fa-fw"></i> Programming Languages
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseProgrammingLanguages" class="collapse" aria-labelledby="headingProgrammingLanguages" data-parent="#accordionResume">
+                    <div class="card-body">
+                        HTML | Advanced
+                    </div>
+                    <div class="card-body">
+                        JavaScript | Advanced
+                    </div>
+                    <div class="card-body">
+                        Typescript | Advanced
+                    </div>
+                    <div class="card-body">
+                        CSS | Intermediate
+                    </div>
+                    <div class="card-body">
+                        Java | Intermediate
+                    </div>
+                    <div class="card-body">
+                        PHP | Intermediate
+                    </div>
+                    <div class="card-body">
+                        Python | Basic
+                    </div>
+                    <div class="card-body">
+                        SQL | Basic
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingSkills">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
+                            <i class="fas fa-chart-bar fa-fw"></i> Skills
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseSkills" class="collapse" aria-labelledby="headingSkills" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Angular Framework
+                    </div>
+                    <div class="card-body">
+                        Spring Framework
+                    </div>
+                    <div class="card-body">
+                        Laravel Framework
+                    </div>
+                    <div class="card-body">
+                        Git
+                    </div>
+                    <div class="card-body">
+                        Microsoft Office, Advanced Excel
+                    </div>
+                    <div class="card-body">
+                        Adobe Suite
+                    </div>
+                    <div class="card-body">
+                        Jira
+                    </div>
+                    <div class="card-body">
+                        Trello
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attitudes -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingAttitudes">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseAttitudes" aria-expanded="false" aria-controls="collapseAttitudes">
+                            <i class="fas fa-lightbulb fa-fw"></i> Attitudes
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseAttitudes" class="collapse" aria-labelledby="headingAttitudes" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Problem-solver
+                    </div>
+                    <div class="card-body">
+                        Creative
+                    </div>
+                    <div class="card-body">
+                        Lifelong learner
+                    </div>
+                    <div class="card-body">
+                        Great team worker
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingLanguages">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseLanguages" aria-expanded="false" aria-controls="collapseLanguages">
+                            <i class="fas fa-globe fa-fw"></i> Languages
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseLanguages" class="collapse" aria-labelledby="headingLanguages" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Spanish | Native
+                    </div>
+                    <div class="card-body">
+                        English | B2 Level
+                    </div>
+                    <div class="card-body">
+                        Portuguese | A2 Level
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hobbies -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingHobbies">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseHobbies" aria-expanded="false" aria-controls="collapseHobbies">
+                            <i class="fas fa-hiking fa-fw"></i> Hobbies
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseHobbies" class="collapse" aria-labelledby="headingHobbies" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Sports
+                    </div>
+                    <div class="card-body">
+                        Music
+                    </div>
+                    <div class="card-body">
+                        Traveling
+                    </div>
+                    <div class="card-body">
+                        Poker
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extra -->
+            <div class="card">
+                <div class="card-header bg-primary" id="headingExtra">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseExtra" aria-expanded="false" aria-controls="collapseExtra">
+                            <i class="fas fa-plus-circle fa-fw"></i> Extra
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseExtra" class="collapse" aria-labelledby="headingExtra" data-parent="#accordionResume">
+                    <div class="card-body">
+                        Driver's license
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Chatbot -->
+    <div id="chatbot">
+        <div id="chatbotHeader">
+            Chat with Me!
+            <button id="minimizeChatbot">-</button>
+        </div>
+        <div id="chatbotMessages">
+            <div class="botMessage"><strong>Andrés: </strong> Hello! How can I help you today?</div>
+        </div>
+        <div id="chatbotInput">
+            <textarea id="chatInput" rows="2" placeholder="Type your message..."></textarea>
+            <button id="sendMessage">Send</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        var expandAllButton = document.getElementById("btnExpandAll");
+        var isExpanded = false;
+
+        expandAllButton.addEventListener("click", function() {
+            var collapsibleElements = document.querySelectorAll(".collapse");
+            for (var i = 0; i < collapsibleElements.length; i++) {
+                var element = collapsibleElements[i];
+                element.classList.toggle("show", !isExpanded);
+            }
+
+            isExpanded = !isExpanded;
+            expandAllButton.textContent = isExpanded ? "Collapse All" : "Expand All";
+        });
+
+        var collapseButtons = document.querySelectorAll(".btn-link[data-toggle='collapse']");
+        collapseButtons.forEach(function(button) {
+            button.addEventListener("click", function(event) {
+                event.stopPropagation(); // Prevent event propagation to parent button
+                var target = document.querySelector(button.getAttribute("data-target"));
+                target.classList.toggle("show");
+                
+                var icon = button.querySelector("i");
+                if (target.classList.contains("show")) {
+                    icon.classList.remove("fa-angle-down");
+                    icon.classList.add("fa-angle-up");
+                } else {
+                    icon.classList.remove("fa-angle-up");
+                    icon.classList.add("fa-angle-down");
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        const messagesContainer = document.getElementById('chatbotMessages');
+        const inputField = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendMessage');
+
+        const defaultMessage = "(You have to act as a fullstack web developer with two and a half years of experience who is looking for angular/spring/laravel work. Your name is Andrés. 26 years old. Spanish. Yo have B2 level of English. Máximum 400 characters. Write the minimum words to answer this:)"
+        const API_KEY = "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";
+        const API_URL = "https://api.groq.com/openai/v1/chat/completions";
+
+        sendButton.addEventListener('click', () => {
+            const userMessage = inputField.value.trim();
+            if (userMessage === '') return;
+
+            // Muestra el mensaje del usuario
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'userMessage'; // Clase específica para mensajes del usuario
+            userMessageDiv.innerHTML = `<strong>You:</strong> ${userMessage}`;
+            messagesContainer.appendChild(userMessageDiv);
+            inputField.value = '';
+
+            // Llama a la API para obtener una respuesta
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: "llama3-8b-8192", // Modelo especificado
+                    temperature: 1,
+                    max_tokens: 1024,
+                    messages: [
+                        { role: "user", content: defaultMessage + userMessage }
+                    ]
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botMessage = data.choices[0].message.content.trim();
+
+                // Muestra el mensaje del bot
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'botMessage'; // Clase específica para mensajes del bot
+                botMessageDiv.innerHTML = `<strong>Andrés:</strong> ${botMessage}`;
+                messagesContainer.appendChild(botMessageDiv);
+
+                // Desplazamiento automático hacia abajo
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+
+                const errorMessageDiv = document.createElement('div');
+                errorMessageDiv.className = 'botMessage'; // Clase específica para mensajes del bot
+                errorMessageDiv.innerHTML = `<strong>Andrés:</strong> I'm sorry, I couldn't process your request. Please try again later.`;
+                messagesContainer.appendChild(errorMessageDiv);
+
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            });
+        });
+
+        // Permitir el envío al presionar Enter
+        inputField.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendButton.click();
+            }
+        });
+
+        document.getElementById('minimizeChatbot').addEventListener('click', () => {
+            const chatbot = document.getElementById('chatbot');
+            chatbot.classList.toggle('minimized');
+        });
+    </script>
+
+</body>
+</html>
